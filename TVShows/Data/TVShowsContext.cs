@@ -43,6 +43,7 @@ namespace Data
             var userShows = new List<UserShow>
             {
                 new UserShow{UserId=1, ShowId=1, ShowStatus=Status.Dropped},
+                new UserShow{UserId=1, ShowId=2, ShowStatus=Status.Watching},
                 new UserShow{UserId=1, ShowId=4, ShowStatus=Status.Watching},
                 new UserShow{UserId=2, ShowId=4, ShowStatus=Status.Watching},
                 new UserShow{UserId=3, ShowId=2, ShowStatus=Status.PlanToWatch},
