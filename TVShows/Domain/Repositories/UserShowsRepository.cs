@@ -1,5 +1,8 @@
 ﻿using Data;
 using Data.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Domain.Repositories
@@ -10,6 +13,13 @@ namespace Domain.Repositories
         public UserShowsRepository(TVShowsContext context)
         {
             _context = context;
+        }
+
+        public async Task<List<UserShow>> GetUserShows(int id, Status? status)
+        {
+            if (status.HasValue)
+                return await _context.UserShows.Where(us => us.UserId == id && us.ShowStatus == status.Value).ToListAsync();
+            return await _context.UserShows.Where(us => us.UserId == id).ToListAsync();
         }
 
         public async Task AddUserShow(UserShow userShow)
@@ -27,6 +37,12 @@ namespace Domain.Repositories
                 await _context.SaveChangesAsync();
             }
             return userShow;
+        }
+
+        public async Task UpdateUserShow(UserShow userShow)
+        {
+            _context.UserShows.Update(userShow);
+            await _context.SaveChangesAsync();
         }
     }
 }

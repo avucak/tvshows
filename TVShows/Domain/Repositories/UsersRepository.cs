@@ -25,14 +25,6 @@ namespace Domain.Repositories
             return await _context.Users.FindAsync(id);
         }
 
-        //get all user shows for user, by categories -> move this to userShow repo
-        public async Task<List<UserShow>> GetUserShows(int id, Status? status)
-        {
-            if(status.HasValue)
-                return await _context.UserShows.Where(us => us.UserId == id && us.ShowStatus == status.Value).ToListAsync();
-            return await _context.UserShows.Where(us => us.UserId == id).ToListAsync();
-        }
-
         public async Task AddUser(User user)
         {
             _context.Users.Add(user);
@@ -48,6 +40,12 @@ namespace Domain.Repositories
                 await _context.SaveChangesAsync();
             }
             return user;
+        }
+
+        public async Task UpdateUser(User user)
+        {
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
         }
     }
 }

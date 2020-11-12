@@ -29,13 +29,6 @@ namespace WebApplication1.Controllers
             return await _usersRepository.GetUser(id);
         }
 
-        //user show controller, not here
-        [HttpGet("{id}/shows/{status?}")]
-        public async Task<ActionResult<List<UserShow>>> GetUserShows(int id, Status? status)
-        {
-            return await _usersRepository.GetUserShows(id, status);
-        }
-
         [HttpPost]
         public async Task<ActionResult<User>> AddUser(User user)
         {
@@ -54,6 +47,14 @@ namespace WebApplication1.Controllers
         }
 
         //TODO: edit user
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateUser(int id, User user)
+        {
+            if (id != user.Id)
+                return BadRequest();
+            await _usersRepository.UpdateUser(user);
+            return NoContent();
+        }
 
     }
 }

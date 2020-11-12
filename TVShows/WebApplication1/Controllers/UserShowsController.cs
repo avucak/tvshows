@@ -1,6 +1,7 @@
 ﻿using Data.Models;
 using Domain.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace WebApplication1.Controllers
@@ -13,6 +14,12 @@ namespace WebApplication1.Controllers
         public UserShowsController(IUserShowsRepository userShowsRepository)
         {
             _userShowsRepository = userShowsRepository;
+        }
+
+        [HttpGet("{id}/{status?}")]
+        public async Task<ActionResult<List<UserShow>>> GetUserShows(int id, Status? status)
+        {
+            return await _userShowsRepository.GetUserShows(id, status);
         }
 
         [HttpPost]
@@ -34,6 +41,15 @@ namespace WebApplication1.Controllers
             return userShow;
         }
 
-        //TODO: edit userShow
+        //what if the user show doesn't exist?
+        //concurrency?
+        [HttpPut("{userId}&{showId}")]
+        public async Task<ActionResult> UpdateUserShow(int userId, int showId, [FromBody] UserShow userShow)
+        {
+            if (userId != userShow.UserId || showId != userShow.ShowId)
+                return BadRequest();
+            await _userShowsRepository.UpdateUserShow(userShow);
+            return NoContent();
+        }
     }
 }
