@@ -46,7 +46,6 @@ namespace WebApplication1.Controllers
             return user;
         }
 
-        //TODO: edit user
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateUser(int id, User user)
         {

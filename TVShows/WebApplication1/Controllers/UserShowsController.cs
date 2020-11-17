@@ -32,7 +32,7 @@ namespace WebApplication1.Controllers
 
         //concurrency?
         //should the ids be sent in a different way
-        [HttpDelete("{userId}&{showId}")]
+        [HttpDelete("userid={userId}&showid={showId}")]
         public async Task<ActionResult<UserShow>> DeleteUserShow(int userId, int showId)
         {
             var userShow = await _userShowsRepository.DeleteUserShow(userId, showId);
@@ -43,7 +43,7 @@ namespace WebApplication1.Controllers
 
         //what if the user show doesn't exist?
         //concurrency?
-        [HttpPut("{userId}&{showId}")]
+        [HttpPut("userid={userId}&showid={showId}")]
         public async Task<ActionResult> UpdateUserShow(int userId, int showId, [FromBody] UserShow userShow)
         {
             if (userId != userShow.UserId || showId != userShow.ShowId)
