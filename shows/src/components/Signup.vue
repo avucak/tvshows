@@ -1,11 +1,15 @@
 <template>
-  <div class="modal" v-if="showLoginModal">
+  <div class="modal" v-if="showSignupModal">
     <div class="modal-content">
       <div>
         <span class="close" v-on:click="closeModal">&times;</span>
       </div>
       <form action="" class="form-container">
-        <h1>Login</h1>
+        <h1 class="title">Join TV shows!</h1>
+        <div class="inputs">
+          <label for="email">Email</label>
+          <input type="text" placeholder="Enter Email" name="email" required />
+        </div>
         <div class="inputs">
           <label for="username">Username</label>
           <input
@@ -25,10 +29,10 @@
           />
         </div>
 
-        <button type="submit" class="btn">Login</button>
+        <button type="submit" class="btn">Sign up</button>
         <div>
-          Not a member?
-          <a href="#" v-on:click="closeLoginOpenSignup">Sign up now</a>
+          Already have an account?
+          <a href="#" v-on:click="closeSignupOpenLogin">Log in</a>
         </div>
       </form>
     </div>
@@ -37,21 +41,25 @@
 
 <script>
 export default {
-  name: "LogIn",
-  props: { showLoginModal: Boolean },
+  name: "Signup",
+  props: { showSignupModal: Boolean },
   methods: {
     closeModal() {
-      this.$emit("close-login");
+      this.$emit("close-signup");
     },
-    closeLoginOpenSignup() {
-      this.$emit("close-login");
-      this.$emit("show-signup");
+    closeSignupOpenLogin() {
+      this.$emit("close-signup");
+      this.$emit("show-login");
     },
   },
 };
 </script>
 
 <style scoped>
+.title {
+  color: darkred;
+}
+
 .modal {
   position: fixed;
   z-index: 1;

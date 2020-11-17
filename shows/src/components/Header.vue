@@ -4,8 +4,8 @@
       <h3>TV shows</h3>
     </div>
     <div>
-      <button>Login</button>
-      <button>Sign up</button>
+      <button v-on:click="showLogin">Login</button>
+      <button v-on:click="showSignup">Sign up</button>
     </div>
   </header>
 </template>
@@ -13,6 +13,14 @@
 <script>
 export default {
   name: "Header",
+  methods: {
+    showLogin() {
+      this.$emit("show-login");
+    },
+    showSignup() {
+      this.$emit("show-signup");
+    },
+  },
 };
 </script>
 
