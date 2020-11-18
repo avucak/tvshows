@@ -35,12 +35,5 @@ namespace Domain.Repositories
             }
             return show;
         }
-
-        //move to userShows; unneeded?
-        //public async Task<List<User>> GetUsersForShow(int id)
-        //{ 
-        //    var userIds = _context.UserShows.Where(us => us.ShowId == id).Select(us => us.UserId);
-        //    return await _context.Users.Where(u => userIds.Contains(u.Id)).ToListAsync();
-        //}
     }
 }

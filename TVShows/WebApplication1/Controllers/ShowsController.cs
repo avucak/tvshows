@@ -40,12 +40,5 @@ namespace WebApplication1.Controllers
                 return NotFound();
             return show;
         }
-
-        //move to usershows, unneeded?
-        //[HttpGet("{id}/users")]
-        //public async Task<ActionResult<List<User>>> GetUsersForShow(int id)
-        //{
-        //    return await _showsRepository.GetUsersForShow(id);
-        //}
     }
 }

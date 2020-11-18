@@ -26,12 +26,10 @@ namespace WebApplication1.Controllers
         public async Task<ActionResult<UserShow>> AddUserShow(UserShow userShow)
         {
             await _userShowsRepository.AddUserShow(userShow);
-            //return CreatedAtAction("AddUserShow", new { id = new { userId = userShow.ShowId, showId = userShow.ShowId } }, userShow);
-            return CreatedAtAction("AddUserShow", new { id = userShow.ShowId + " " + userShow.ShowId } , userShow);
+            return CreatedAtAction("AddUserShow", new { userId = userShow.UserId, showId = userShow.ShowId }, userShow);
         }
 
         //concurrency?
-        //should the ids be sent in a different way
         [HttpDelete("userid={userId}&showid={showId}")]
         public async Task<ActionResult<UserShow>> DeleteUserShow(int userId, int showId)
         {
