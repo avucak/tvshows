@@ -8,8 +8,6 @@ namespace Data.Models
         public string Name { get; set; }
         public string Synopsis { get; set; }
         public double EpisodeLength { get; set; }
-
-        //public List<UserShow> Users { get; set; }
         public ICollection<UserShow> UserShows { get; set; }
     }
 }
