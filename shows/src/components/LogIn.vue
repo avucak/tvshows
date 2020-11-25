@@ -10,22 +10,26 @@
           <label for="username">Username</label>
           <input
             type="text"
+            v-model="username"
             placeholder="Enter Username"
             name="username"
             required
           />
         </div>
         <div class="inputs">
-          <label for="psw">Password</label>
+          <label for="password">Password</label>
           <input
             type="password"
+            v-model="password"
             placeholder="Enter Password"
-            name="psw"
+            name="password"
             required
           />
         </div>
 
-        <button type="submit" class="btn">Login</button>
+        <button type="submit" class="btn" v-on:click="checkUserInfo">
+          Login
+        </button>
         <div>
           Not a member?
           <a href="#" v-on:click="closeLoginOpenSignup">Sign up now</a>
@@ -36,8 +40,15 @@
 </template>
 
 <script>
+import { getUser } from "../apiRequests/backend/userRequests";
 export default {
   name: "LogIn",
+  data() {
+    return {
+      username: "",
+      password: "",
+    };
+  },
   props: { showLoginModal: Boolean },
   methods: {
     closeModal() {
@@ -46,6 +57,17 @@ export default {
     closeLoginOpenSignup() {
       this.$emit("close-login");
       this.$emit("show-signup");
+    },
+    checkUserInfo() {
+      getUser(this.username, this.password)
+        .then((response) => {
+          console.log(response);
+          console.log("username in log in : " + this.username);
+          this.$emit("user-logged-in", this.username);
+        })
+        .catch((error) => {
+          alert(error);
+        });
     },
   },
 };

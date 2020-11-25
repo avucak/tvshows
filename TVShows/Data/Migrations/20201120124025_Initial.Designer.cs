@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(TVShowsContext))]
-    [Migration("20201111151428_addingData")]
-    partial class addingData
+    [Migration("20201120124025_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -78,7 +78,16 @@ namespace Data.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Username")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -89,21 +98,29 @@ namespace Data.Migrations
                         new
                         {
                             Id = 1,
+                            Email = "C@rson.com",
+                            Password = "12345678",
                             Username = "Carson"
                         },
                         new
                         {
                             Id = 2,
+                            Email = "mermaid@o.com",
+                            Password = "123321ftw",
                             Username = "Meredith"
                         },
                         new
                         {
                             Id = 3,
+                            Email = "arthur@gmail.com",
+                            Password = "4358jdsfj",
                             Username = "Arthur"
                         },
                         new
                         {
                             Id = 4,
+                            Email = "lily@lila.com",
+                            Password = "lilaisthebest",
                             Username = "Lila"
                         });
                 });

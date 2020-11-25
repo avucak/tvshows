@@ -8,6 +8,7 @@ namespace Domain.Repositories
     {
         Task<List<User>> GetUsers();
         Task<User> GetUser(int id);
+        Task<User> GetUser(string username, string password);
         Task AddUser(User user);
         Task<User> DeleteUser(int id);
         Task UpdateUser(User user);

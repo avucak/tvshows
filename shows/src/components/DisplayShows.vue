@@ -8,9 +8,7 @@
 
 <script>
 import Show from "./Show";
-//import {getShows} from '../apiRequests/api/showRequests';
-import axios from "axios";
-const baseUrl = "https://www.episodate.com/api/";
+import { getShows } from "../apiRequests/api/showRequests";
 
 export default {
   name: "DisplayShows",
@@ -23,8 +21,7 @@ export default {
     };
   },
   mounted() {
-    axios.get(baseUrl + "most-popular?page=1").then((response) => {
-      console.log(response.data);
+    getShows().then((response) => {
       this.showInfo = response.data;
     });
   },

@@ -4,8 +4,14 @@
       <h3>TV shows</h3>
     </div>
     <div>
-      <button v-on:click="showLogin">Login</button>
-      <button v-on:click="showSignup">Sign up</button>
+      <div v-if="username === ''">
+        <button v-on:click="showLogin">Login</button>
+        <button v-on:click="showSignup">Sign up</button>
+      </div>
+      <div v-else class="user-icon">
+        <img src="../assets/images/blank-profile-picture.png" alt="Avatar" />
+        <p>{{ username }}</p>
+      </div>
     </div>
   </header>
 </template>
@@ -13,6 +19,11 @@
 <script>
 export default {
   name: "Header",
+  props: {
+    username: {
+      type: String,
+    },
+  },
   methods: {
     showLogin() {
       this.$emit("show-login");
@@ -49,5 +60,22 @@ button {
 
 h3 {
   margin: 15px;
+}
+
+img {
+  width: 5%;
+  height: auto;
+  border-radius: 50%;
+}
+
+.user-icon {
+  font-size: 15px;
+  float: right;
+  margin-top: 10px;
+}
+
+p {
+  margin-top: 3px;
+  margin-bottom: 10px;
 }
 </style>

@@ -29,11 +29,20 @@ namespace WebApplication1.Controllers
             return await _usersRepository.GetUser(id);
         }
 
+        [HttpGet("username={username}&password={password}")]
+        public async Task<ActionResult> GetUser(string username, string password)
+        {
+            var user = await _usersRepository.GetUser(username, password);
+            if(user != null)
+                return Ok();
+            return NotFound();
+        }
+
         [HttpPost]
         public async Task<ActionResult<User>> AddUser(User user)
         {
-            await _usersRepository.AddUser(user);
-            return CreatedAtAction(nameof(User), new { id = user.Id }, user);
+                await _usersRepository.AddUser(user);
+                return CreatedAtAction(nameof(User), new { id = user.Id }, user);
         }
 
         //concurency?

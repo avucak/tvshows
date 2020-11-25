@@ -10,11 +10,11 @@ namespace Data.Migrations
                 name: "Shows",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    Synopsis = table.Column<string>(nullable: true),
-                    EpisodeLength = table.Column<double>(nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Synopsis = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EpisodeLength = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -25,9 +25,11 @@ namespace Data.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Username = table.Column<string>(nullable: true)
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -38,9 +40,9 @@ namespace Data.Migrations
                 name: "UserShows",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(nullable: false),
-                    ShowId = table.Column<int>(nullable: false),
-                    ShowStatus = table.Column<int>(nullable: true)
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    ShowId = table.Column<int>(type: "int", nullable: false),
+                    ShowStatus = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -72,27 +74,28 @@ namespace Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "Username" },
+                columns: new[] { "Id", "Email", "Password", "Username" },
                 values: new object[,]
                 {
-                    { 1, "Carson" },
-                    { 2, "Meredith" },
-                    { 3, "Arthur" },
-                    { 4, "Lila" }
+                    { 1, "C@rson.com", "12345678", "Carson" },
+                    { 2, "mermaid@o.com", "123321ftw", "Meredith" },
+                    { 3, "arthur@gmail.com", "4358jdsfj", "Arthur" },
+                    { 4, "lily@lila.com", "lilaisthebest", "Lila" }
                 });
 
             migrationBuilder.InsertData(
                 table: "UserShows",
-                columns: new[] { "UserId", "ShowId", "ShowStatus" },
+                columns: new[] { "ShowId", "UserId", "ShowStatus" },
                 values: new object[,]
                 {
                     { 1, 1, 2 },
-                    { 1, 4, 0 },
-                    { 2, 4, 0 },
-                    { 3, 2, 1 },
+                    { 2, 1, 0 },
+                    { 4, 1, 0 },
+                    { 4, 2, 0 },
+                    { 2, 3, 1 },
                     { 3, 3, 2 },
-                    { 4, 1, 2 },
-                    { 4, 2, 1 },
+                    { 1, 4, 2 },
+                    { 2, 4, 1 },
                     { 4, 4, null }
                 });
 

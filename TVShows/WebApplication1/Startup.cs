@@ -21,6 +21,14 @@ namespace WebApplication1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowMyOrigin",
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("http://localhost:8080").AllowAnyMethod().AllowAnyHeader();
+                                  });
+            });
             services.AddControllersWithViews().AddNewtonsoftJson();
             services.AddDbContext<TVShowsContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("TVShowsDatabase")));
@@ -44,8 +52,9 @@ namespace WebApplication1
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
+
+            app.UseCors("AllowMyOrigin");
 
             app.UseAuthorization();
 

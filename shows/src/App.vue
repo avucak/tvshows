@@ -1,11 +1,16 @@
 <template>
   <div>
-    <Header v-on:show-login="showLogin" v-on:show-signup="showSignup" />
+    <Header
+      :username="username"
+      v-on:show-login="showLogin"
+      v-on:show-signup="showSignup"
+    />
     <DisplayShows />
     <LogIn
       :showLoginModal="showLoginModal"
       v-on:close-login="closeLogin"
       v-on:show-signup="showSignup"
+      v-on:user-logged-in="changeHeader"
     />
     <Signup
       :showSignupModal="showSignupModal"
@@ -34,7 +39,13 @@ export default {
     return {
       showLoginModal: false,
       showSignupModal: false,
+      username: "",
     };
+  },
+  mounted() {
+    if (localStorage.username) {
+      this.username = localStorage.username;
+    }
   },
   methods: {
     showLogin() {
@@ -48,6 +59,10 @@ export default {
     },
     closeSignup() {
       this.showSignupModal = false;
+    },
+    changeHeader(username) {
+      localStorage.username = username;
+      this.username = username;
     },
   },
 };

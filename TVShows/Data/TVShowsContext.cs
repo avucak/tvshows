@@ -26,10 +26,10 @@ namespace Data
 
             var users = new List<User>
             {
-                new User{ Id=1, Username="Carson" },
-                new User{ Id=2, Username="Meredith" },
-                new User{ Id=3, Username="Arthur" },
-                new User{ Id=4, Username="Lila" }
+                new User{ Id=1, Username="Carson", Email="C@rson.com", Password="12345678" },
+                new User{ Id=2, Username="Meredith", Email="mermaid@o.com", Password="123321ftw" },
+                new User{ Id=3, Username="Arthur", Email="arthur@gmail.com", Password="4358jdsfj" },
+                new User{ Id=4, Username="Lila", Email="lily@lila.com", Password="lilaisthebest" }
             };
 
             var shows = new List<Show>

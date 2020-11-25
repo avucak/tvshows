@@ -25,6 +25,11 @@ namespace Domain.Repositories
             return await _context.Users.FindAsync(id);
         }
 
+        public async Task<User> GetUser(string username, string password)
+        {
+            return await _context.Users.SingleOrDefaultAsync(u => u.Username == username && u.Password == password);
+        }
+
         public async Task AddUser(User user)
         {
             _context.Users.Add(user);

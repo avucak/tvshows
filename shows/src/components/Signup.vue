@@ -8,12 +8,19 @@
         <h1 class="title">Join TV shows!</h1>
         <div class="inputs">
           <label for="email">Email</label>
-          <input type="text" placeholder="Enter Email" name="email" required />
+          <input
+            type="email"
+            v-model="userInfo.email"
+            placeholder="Enter Email"
+            name="email"
+            required
+          />
         </div>
         <div class="inputs">
           <label for="username">Username</label>
           <input
             type="text"
+            v-model="userInfo.username"
             placeholder="Enter Username"
             name="username"
             required
@@ -23,13 +30,16 @@
           <label for="psw">Password</label>
           <input
             type="password"
+            v-model="userInfo.password"
             placeholder="Enter Password"
             name="psw"
             required
           />
         </div>
 
-        <button type="submit" class="btn">Sign up</button>
+        <button type="submit" class="btn" v-on:click="sendUserInfo">
+          Sign up
+        </button>
         <div>
           Already have an account?
           <a href="#" v-on:click="closeSignupOpenLogin">Log in</a>
@@ -40,9 +50,20 @@
 </template>
 
 <script>
+import { postUser } from "../apiRequests/backend/userRequests";
+
 export default {
   name: "Signup",
   props: { showSignupModal: Boolean },
+  data() {
+    return {
+      userInfo: {
+        email: "",
+        username: "",
+        password: "",
+      },
+    };
+  },
   methods: {
     closeModal() {
       this.$emit("close-signup");
@@ -50,6 +71,17 @@ export default {
     closeSignupOpenLogin() {
       this.$emit("close-signup");
       this.$emit("show-login");
+    },
+    sendUserInfo() {
+      console.log(this.userInfo);
+      postUser(this.userInfo)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+          alert(error);
+        });
     },
   },
 };
@@ -107,6 +139,7 @@ form .signup-link a:hover {
   text-decoration: underline;
 }
 
+.form-container input[type="email"],
 .form-container input[type="text"],
 .form-container input[type="password"] {
   width: 90%;
